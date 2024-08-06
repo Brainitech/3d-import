@@ -1,7 +1,7 @@
 import React from "react"
 import { PlayuseDoors } from "./events"
 
-const UI = () => {
+const UI = ({ setAnimationIndex }) => {
   const divStyle = {
     display: "none",
     position: "absolute",
@@ -21,38 +21,43 @@ const UI = () => {
   }
   const butStyle = {
     display: "flex",
-    flexdirection: "coloumn",
+    flexDirection: "column",
     margin: "5px",
-    justifycontent: "center",
+    justifyContent: "center",
   }
-  const { animations, animationIndex, setAnimationIndex } = PlayuseDoors()
+  const { animations, animationIndex, setAnimationIndex: setLocalAnimationIndex } = PlayuseDoors()
+
+  const handleButtonClick = (index) => {
+    setAnimationIndex(index)
+    setLocalAnimationIndex(index)
+  }
 
   return (
     <>
       <div style={divStyle}>
         {animations.map((animation, index) => (
-          <button style={butStyle} key={animation} variant={index === animationIndex ? "filled" : "light"} onClick={() => setAnimationIndex(index)}>
+          <button style={butStyle} key={animation} variant={index === animationIndex ? "filled" : "light"} onClick={() => handleButtonClick(index)}>
             {animation}
           </button>
         ))}
       </div>
       <div style={divStyle2}>
-        <button style={butStyle} onClick={() => setAnimationIndex(0)}>
+        <button style={butStyle} onClick={() => handleButtonClick(0)}>
           Close All
         </button>
-        <button style={butStyle} onClick={() => setAnimationIndex(5)}>
+        <button style={butStyle} onClick={() => handleButtonClick(5)}>
           Hackathon
         </button>
-        <button style={butStyle} onClick={() => setAnimationIndex(4)}>
+        <button style={butStyle} onClick={() => handleButtonClick(4)}>
           Quiz
         </button>
-        <button style={butStyle} onClick={() => setAnimationIndex(3)}>
+        <button style={butStyle} onClick={() => handleButtonClick(3)}>
           Speaker Session
         </button>
-        <button style={butStyle} onClick={() => setAnimationIndex(2)}>
+        <button style={butStyle} onClick={() => handleButtonClick(2)}>
           Treasure Hunt
         </button>
-        <button style={butStyle} onClick={() => setAnimationIndex(1)}>
+        <button style={butStyle} onClick={() => handleButtonClick(1)}>
           Business Analytics
         </button>
       </div>
