@@ -3,6 +3,7 @@ import { Suspense } from "react"
 import { Environment, OrbitControls } from "@react-three/drei"
 import { easing } from "maath"
 import Building_test from "./components/Building/Building_test"
+import UI from "./components/UI"
 import "./App.css"
 
 function Rig() {
@@ -21,8 +22,9 @@ function App() {
             <Building_test />
           </Suspense>
         </group>
-        <Rig />
+        {/* <Rig /> */}
       </Canvas>
+      <UI />
     </>
   )
 }
