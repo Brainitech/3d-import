@@ -6,21 +6,44 @@ Command: npx gltfjsx@6.5.0 .\Building_test.gltf
 import React, { useEffect, useState, useRef } from "react"
 import { useGLTF, PerspectiveCamera, useAnimations } from "@react-three/drei"
 import { PlayuseDoors } from "../events"
+import * as THREE from "three"
 
 export default function Model(props) {
   const group = React.useRef()
   const { nodes, materials, animations } = useGLTF("src/components/Building/Building_test.gltf")
-  const { setAnimations, animationIndex } = PlayuseDoors()
+  const { setAnimations, animationIndex, animationGroups } = PlayuseDoors()
   const { actions, names } = useAnimations(animations, group)
   console.log(names)
 
   useEffect(() => {
     setAnimations(names)
-  }, [names])
+  }, [names, setAnimations])
 
   useEffect(() => {
-    actions[names[animationIndex]].reset().fadeIn(0.5).play()
-  }, [animationIndex])
+    const playAnimations = (indexes) => {
+      indexes.forEach((index) => {
+        const action = actions[names[index]]
+        action.reset()
+        action.setLoop(THREE.LoopOnce)
+        action.clampWhenFinished = true
+        action.fadeIn(0.5).play()
+      })
+    }
+
+    const stopAnimations = (indexes) => {
+      indexes.forEach((index) => {
+        actions[names[index]].fadeOut(0.5)
+      })
+    }
+
+    const groupIndexes = animationGroups[animationIndex] || [animationIndex]
+
+    playAnimations(groupIndexes)
+
+    return () => {
+      stopAnimations(groupIndexes)
+    }
+  }, [animationIndex, actions, names, animationGroups])
 
   return (
     <group ref={group} {...props} dispose={null}>

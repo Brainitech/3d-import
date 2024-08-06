@@ -3,10 +3,23 @@ import { createContext, useContext, useState } from "react"
 const UseDoorContext = createContext({})
 
 export const UseDoorProvider = (props) => {
-  const [animationIndex, setAnimationIndex] = useState(13)
+  const [animationIndex, setAnimationIndex] = useState(0)
   const [animations, setAnimations] = useState([])
 
-  return <UseDoorContext.Provider value={{ animationIndex, setAnimationIndex, animations, setAnimations }}>{props.children}</UseDoorContext.Provider>
+  const animationGroups = {
+    1: [1, 6],
+    2: [7, 2],
+    3: [3, 8],
+    4: [9, 4],
+    5: [5, 10],
+    6: [6, 1],
+    7: [5, 10],
+    8: [4, 9],
+    9: [8, 3],
+    10: [2, 7],
+  }
+
+  return <UseDoorContext.Provider value={{ animationIndex, setAnimationIndex, animations, setAnimations, animationGroups }}>{props.children}</UseDoorContext.Provider>
 }
 
 export const PlayuseDoors = () => {
