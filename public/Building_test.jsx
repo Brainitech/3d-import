@@ -5,12 +5,12 @@ Command: npx gltfjsx@6.5.0 .\Building_test.gltf
 
 import React, { useEffect, useState, useRef } from "react"
 import { useGLTF, PerspectiveCamera, useAnimations } from "@react-three/drei"
-import { PlayuseDoors } from "../events"
+import { PlayuseDoors } from "../src/components/events"
 import * as THREE from "three"
 
 export default function Model(props) {
   const group = React.useRef()
-  const { nodes, materials, animations } = useGLTF("src/components/Building/Building_test.gltf")
+  const { nodes, materials, animations } = useGLTF("/Building_test.gltf")
   const { setAnimations, animationIndex, animationGroups } = PlayuseDoors()
   const { actions, names } = useAnimations(animations, group)
   console.log(names)

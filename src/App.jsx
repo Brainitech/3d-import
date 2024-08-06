@@ -2,7 +2,7 @@ import { Canvas, useFrame } from "@react-three/fiber"
 import { Suspense, useRef, useState } from "react"
 import { Environment, OrbitControls } from "@react-three/drei"
 import { easing } from "maath"
-import Building_test from "./components/Building/Building_test"
+import Building_test from "/public/Building_test"
 import UI from "./components/UI"
 import "./App.css"
 
