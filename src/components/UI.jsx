@@ -19,6 +19,14 @@ const UI = ({ setAnimationIndex }) => {
     padding: "10px",
     backgroundColor: "lightgray", // Optional styling
   }
+  const divStyle3 = {
+    position: "absolute",
+    top: "1%",
+    right: "50",
+    transform: "translateY(-50%)",
+    padding: "10px",
+    backgroundColor: "lightgray", // Optional styling
+  }
   const butStyle = {
     display: "flex",
     flexDirection: "column",
@@ -61,6 +69,7 @@ const UI = ({ setAnimationIndex }) => {
           Business Analytics
         </button>
       </div>
+<div style={divStyle3}>Wait for the model to load</div>
     </>
   )
 }
