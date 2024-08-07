@@ -6,12 +6,15 @@ import Building_test from "/public/Building_test"
 import UI from "./components/UI"
 import "./App.css"
 
-export function DefRig() {
+export function DefRig({ controlsActive }) {
   return useFrame((state, delta) => {
-    easing.damp3(state.camera.position, [1 - state.mouse.x / 4, 2.5 - state.mouse.y / 4, 30], 0.5, delta)
-    easing.damp3(state.camera.rotation, [-0, 0, 0], 0.2, delta)
+    if (!controlsActive.current) {
+      easing.damp3(state.camera.position, [1, 0, 30], 0.7, delta)
+      easing.damp3(state.camera.rotation, [-0, 0, 0], 0.7, delta)
+    }
   })
 }
+
 export function HRig() {
   return useFrame((state, delta) => {
     easing.damp3(state.camera.position, [1.5 - state.mouse.x / 4, 2 - state.mouse.y / 4, 1.2], 0.2, delta)
@@ -45,16 +48,28 @@ export function BRig() {
 
 function App() {
   const [animationIndex, setAnimationIndex] = useState(null)
+  const controlsActive = useRef(false)
+
   return (
     <>
       <Canvas camera={{ position: [1, 1.5, 30], fov: 50 }}>
-        {/* <OrbitControls /> */}
         <group position={[0, -10, 0]} rotation={[0, 3.2, 0]}>
           <Suspense fallback={null}>
             <Building_test />
           </Suspense>
-          {animationIndex === 0 && <OrbitControls enablePan={false} enableZoom={false} />}
-          {animationIndex === 0 && <DefRig />}
+          {animationIndex !== 1 && animationIndex !== 1 && animationIndex !== 2 && animationIndex !== 3 && animationIndex !== 4 && animationIndex !== 5 && (
+            <OrbitControls
+              enablePan={false}
+              enableZoom={false}
+              minAzimuthAngle={-Math.PI / 3}
+              maxAzimuthAngle={Math.PI / 3}
+              minPolarAngle={Math.PI / 6}
+              maxPolarAngle={Math.PI - Math.PI / 2}
+              onStart={() => (controlsActive.current = true)}
+              onEnd={() => (controlsActive.current = false)}
+            />
+          )}
+          {(animationIndex === null || animationIndex === 0) && <DefRig controlsActive={controlsActive} />}
           {animationIndex === 5 && <HRig />}
           {animationIndex === 4 && <QRig />}
           {animationIndex === 3 && <SRig />}

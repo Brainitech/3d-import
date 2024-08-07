@@ -13,16 +13,21 @@ const UI = ({ setAnimationIndex }) => {
   }
   const divStyle2 = {
     position: "absolute",
+    display: "flex",
+    justifyContent: "center",
+    flexDirection: "column",
     top: "50%",
     right: "0",
     transform: "translateY(-50%)",
     padding: "10px",
-    backgroundColor: "lightgray", // Optional styling
   }
   const divStyle3 = {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     position: "absolute",
     top: "1%",
-    right: "50",
+    right: "43%",
     transform: "translateY(-50%)",
     padding: "10px",
     backgroundColor: "lightgray", // Optional styling
@@ -30,8 +35,20 @@ const UI = ({ setAnimationIndex }) => {
   const butStyle = {
     display: "flex",
     flexDirection: "column",
+    alignItems: "center",
     margin: "5px",
     justifyContent: "center",
+    borderRadius: "5px",
+  }
+  const butaStyle = {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    margin: "5px",
+    justifyContent: "center",
+    borderRadius: "5px",
+    color: "black",
+    backgroundColor: "lightblue",
   }
   const { animations, animationIndex, setAnimationIndex: setLocalAnimationIndex } = PlayuseDoors()
 
@@ -42,34 +59,34 @@ const UI = ({ setAnimationIndex }) => {
 
   return (
     <>
+      <div style={divStyle3}>Wait for the model to load</div>
       <div style={divStyle}>
         {animations.map((animation, index) => (
-          <button style={butStyle} key={animation} variant={index === animationIndex ? "filled" : "light"} onClick={() => handleButtonClick(index)}>
+          <button style={butStyle} key={animation} onClick={() => handleButtonClick(index)}>
             {animation}
           </button>
         ))}
       </div>
       <div style={divStyle2}>
-        <button style={butStyle} onClick={() => handleButtonClick(0)}>
+        <button style={animationIndex === 0 ? butaStyle : butStyle} onClick={() => handleButtonClick(0)}>
           Close All
         </button>
-        <button style={butStyle} onClick={() => handleButtonClick(5)}>
+        <button style={animationIndex === 5 ? butaStyle : butStyle} onClick={() => handleButtonClick(5)}>
           Hackathon
         </button>
-        <button style={butStyle} onClick={() => handleButtonClick(4)}>
+        <button style={animationIndex === 4 ? butaStyle : butStyle} onClick={() => handleButtonClick(4)}>
           Quiz
         </button>
-        <button style={butStyle} onClick={() => handleButtonClick(3)}>
+        <button style={animationIndex === 3 ? butaStyle : butStyle} onClick={() => handleButtonClick(3)}>
           Speaker Session
         </button>
-        <button style={butStyle} onClick={() => handleButtonClick(2)}>
+        <button style={animationIndex === 2 ? butaStyle : butStyle} onClick={() => handleButtonClick(2)}>
           Treasure Hunt
         </button>
-        <button style={butStyle} onClick={() => handleButtonClick(1)}>
+        <button style={animationIndex === 1 ? butaStyle : butStyle} onClick={() => handleButtonClick(1)}>
           Business Analytics
         </button>
       </div>
-<div style={divStyle3}>Wait for the model to load</div>
     </>
   )
 }

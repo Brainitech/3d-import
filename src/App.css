@@ -1,8 +1,13 @@
 canvas {
-  height: 100vh !important;
+  margin: 25vh 0;
+  height: 50vh !important;
+  width: 50vw !important;
 }
 
 body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: hsla(256, 100%, 50%, 1);
   background-image: radial-gradient(at 0% 0%, hsla(270, 100%, 50%, 1) 0px, transparent 50%), radial-gradient(at 100% 46%, hsla(22, 82%, 68%, 1) 0px, transparent 50%),
     radial-gradient(at 90% 9%, hsla(289, 100%, 50%, 1) 0px, transparent 50%), radial-gradient(at 52% 85%, hsla(262, 94%, 68%, 1) 0px, transparent 50%),
