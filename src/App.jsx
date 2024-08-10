@@ -1,6 +1,6 @@
 import { Canvas, useFrame } from "@react-three/fiber"
-import { Suspense, useRef, useState } from "react"
-import { Environment, OrbitControls } from "@react-three/drei"
+import { Suspense, useRef, useState, useEffect } from "react"
+import { OrbitControls } from "@react-three/drei"
 import { easing } from "maath"
 import Building_test from "/public/Building_test"
 import UI from "./components/UI"
@@ -46,13 +46,51 @@ export function BRig() {
   })
 }
 
+export function useMediaQuery(query) {
+  const [matches, setMatches] = useState(false)
+
+  useEffect(() => {
+    const mediaQueryList = window.matchMedia(query)
+    const documentChangeHandler = () => setMatches(mediaQueryList.matches)
+
+    // Set the initial state
+    setMatches(mediaQueryList.matches)
+
+    // Add event listener
+    mediaQueryList.addEventListener("change", documentChangeHandler)
+
+    // Remove event listener on cleanup
+    return () => {
+      mediaQueryList.removeEventListener("change", documentChangeHandler)
+    }
+  }, [query])
+
+  return matches
+}
+
 function App() {
   const [animationIndex, setAnimationIndex] = useState(null)
   const controlsActive = useRef(false)
+  const isMobile = useMediaQuery("(max-width: 1024px)")
+  const canvasRef = useRef()
+
+  const scrsize = animationIndex === 0 || animationIndex === null ? (isMobile ? true : false) : false
+
+  useEffect(() => {
+    if (canvasRef.current) {
+      if (scrsize) {
+        canvasRef.current.classList.add("mobile")
+      } else {
+        canvasRef.current.classList.remove("mobile")
+      }
+    }
+  }, [scrsize])
+
+  console.log(scrsize)
 
   return (
     <>
-      <Canvas camera={{ position: [1, 1.5, 30], fov: 50 }}>
+      <Canvas ref={canvasRef} camera={{ position: [1, 1.5, 30], fov: 65 }}>
         <group position={[0, -10, 0]} rotation={[0, 3.2, 0]}>
           <Suspense fallback={null}>
             <Building_test />
